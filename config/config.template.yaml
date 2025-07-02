@@ -1,0 +1,65 @@
+# Configuration Template for AI Vision Benchmark
+# Copy this file to config.yaml and fill in your API keys
+
+# Commercial API Keys
+openai:
+  api_key: "your-openai-api-key-here"
+  model: "gpt-4o"
+  max_tokens: 4096
+
+google:
+  api_key: "your-google-api-key-here"
+  model: "gemini-1.5-pro-vision"
+
+aws:
+  access_key_id: "your-aws-access-key-here"
+  secret_access_key: "your-aws-secret-key-here"
+  region: "us-east-1"
+
+# Test Configuration
+tests:
+  card_detection:
+    enabled: true
+    test_images:
+      - "greeting_card_wall.jpg"
+    prompts:
+      - "Where are the 'Romantic Birthday' cards?"
+      - "Show me all cards with a bear on them."
+      - "Which cards have the phrase 'Happy Birthday' visible on the front?"
+    
+  person_reid:
+    enabled: true
+    test_videos:
+      - "person_tracking_scene.mp4"
+    prompts:
+      - "Find the person in the red hoodie and black pants."
+      - "Show me when the target person enters the frame and track them."
+
+# Model Configuration
+models:
+  commercial:
+    gpt4o: true
+    gemini: true
+    aws_rekognition: true
+  
+  opensource:
+    yolov8_grounding_dino: true
+    segment_anything_blip2: true
+
+# Output Configuration
+output:
+  results_dir: "results"
+  save_images: true
+  save_videos: true
+  export_format: ["json", "csv", "html"]
+
+# Scoring Configuration
+scoring:
+  metrics:
+    - "Text-Region Localization"
+    - "Object-Level Detection" 
+    - "OCR + Semantic Parsing"
+    - "Visual Bounding Clarity"
+    - "Instruction Following"
+  
+  scale: 5  # 0-5 scoring scale 

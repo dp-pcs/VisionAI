@@ -1,4 +1,6 @@
-# Config files with API keys
+# Environment variables and API keys
+.env
+.env.*
 config/config.yaml
 
 # Data files

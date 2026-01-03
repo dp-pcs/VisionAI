@@ -7,13 +7,19 @@ Main script to execute benchmarks across different AI models
 import argparse
 import yaml
 import logging
+import os
 from pathlib import Path
 from datetime import datetime
 from typing import Dict, List, Any
 import json
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 from models.commercial.gpt4o import GPT4OModel
 from models.commercial.gemini import GeminiModel
+from models.commercial.claude import ClaudeModel
 from models.commercial.aws_rekognition import AWSRekognitionModel
 from models.opensource.yolo_grounding_dino import YOLOGroundingDINOModel
 from models.opensource.sam_blip2 import SAMBlip2Model
@@ -68,7 +74,10 @@ class BenchmarkRunner:
             
         if model_config['commercial'].get('aws_rekognition'):
             models['aws_rekognition'] = AWSRekognitionModel(self.config['aws'])
-            
+
+        if model_config['commercial'].get('claude'):
+            models['claude'] = ClaudeModel(self.config['anthropic'])
+
         # Initialize open source models
         if model_config['opensource'].get('yolov8_grounding_dino'):
             models['yolov8_grounding_dino'] = YOLOGroundingDINOModel()
